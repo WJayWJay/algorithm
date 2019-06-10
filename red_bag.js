@@ -66,22 +66,61 @@ function run(all, len) {
 function test(n = 10) {
     let arr = [];
     let tmp = [];
+    var allCount = 0;
     for(var i = 0; i < n; i++) {
-        tmp = run(100, 10);
+        tmp = randomBag(100, 10);
         arr.push(tmp);
         tmp.forEach((j) => {
             if (j> 12 || j < 6) {
                 console.warn("test failure: ", j);
             }
         })
-        // console.log(tmp.reduce((a, b) => a+b, 0));
+        allCount = tmp.reduce((a, b) => a+b, 0);
+        if (allCount > 100.001 || allCount < 99.9999) {
+            console.warn("test failure: ", allCount, tmp);
+        } 
         // console.log(tmp)
     }
     return arr;
 }
 let t1 = Date.now();
-const NUM = 100000;
+const NUM = 1000000;
 test(NUM)
 let t2 = Date.now();
 console.log("program end!");
 console.log(`for ${NUM} use time: `, t2 - t1)
+
+/**
+ * optimise red bag algorithm
+ * @param {number} sum 
+ * @param {number} count number of bag
+ * @param {number} max max value of bag
+ * @param {number} min min value of bag
+ */
+function randomBag(sum = 100, count = 10, max = 12, min = 6) {
+    var len = count - 1;
+    var remain = sum;
+
+    var cmax, cmin, bag;
+
+    const gBag = (rmax, rmin) => Math.random() * (rmax - rmin) + rmin;
+
+    var arr = new Array(count).fill(0);
+    arr = arr.map( i => {
+        if (len === 0) return remain;
+        cmax = remain - len * min;
+        cmin = remain - len * max;
+
+        if (cmin > min) {
+            bag = gBag(max, cmin);
+        } else if (cmax > max) {
+            bag = gBag(max, min);
+        } else {
+            bag = gBag(cmax, min);
+        }
+        remain -= bag;
+        len--;
+        return bag;
+    });
+    return arr;
+}
