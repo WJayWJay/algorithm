@@ -63,7 +63,7 @@ function run(all, len) {
     // console.log(arr);
     return arr;
 }
-function test(n = 10) {
+function test(n = 10, isPrint = false) {
     let arr = [];
     let tmp = [];
     var allCount = 0;
@@ -79,13 +79,15 @@ function test(n = 10) {
         if (allCount > 100.001 || allCount < 99.9999) {
             console.warn("test failure: ", allCount, tmp);
         } 
-        // console.log(tmp)
+        if (isPrint) {
+            console.log(tmp)
+        }
     }
     return arr;
 }
 let t1 = Date.now();
-const NUM = 1000000;
-test(NUM)
+const NUM = 100;
+test(NUM, 1)
 let t2 = Date.now();
 console.log("program end!");
 console.log(`for ${NUM} use time: `, t2 - t1)
