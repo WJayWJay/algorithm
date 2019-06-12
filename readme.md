@@ -4,3 +4,4 @@
 2. [random red bag algorithm](./red_bag.js)
 3. [using iterator and recursion to implement quick sort](./quickSort.js)
 4. [merge sort](./mergeSort.js)
+5. [reverse single linked list](./reverseList.js)
