@@ -86,6 +86,10 @@ function partion(arr, left, right) {
  * @param {number} j 
  */
 function swap (arr, i, j) {
-    arr[i] = arr[i] ^ arr[j] ^ arr[i];
-    arr[j] = arr[j] ^ arr[i] ^ arr[j];
+    var tmp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = tmp;
 }
+
+// arr[i] = arr[i] ^ arr[j] ^ arr[i];
+//     arr[j] = arr[j] ^ arr[i] ^ arr[j];
